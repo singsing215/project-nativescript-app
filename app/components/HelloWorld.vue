@@ -6,19 +6,19 @@
             <BottomNavigation>
                 <TabStrip>
                     <TabStripItem>
-                        <Label text="Ladies"></Label>
+                        <Label text="Home"></Label>
                         <Image src="res://home"></Image>
                     </TabStripItem>
                     <TabStripItem>
-                        <Label text="Gents"></Label>
+                        <Label text="Estates"></Label>
                         <Image src="res://settings"></Image>
                     </TabStripItem>
                     <TabStripItem>
-                        <Label text="My Cart"></Label>
+                        <Label text="Bedrooms"></Label>
                         <Image src="res://settings"></Image>
                     </TabStripItem>
                     <TabStripItem>
-                        <Label text="Figures"></Label>
+                        <Label text="Profile"></Label>
                         <Image src="res://search"></Image>
                     </TabStripItem>
                 </TabStrip>
