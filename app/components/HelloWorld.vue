@@ -99,10 +99,10 @@
     export default {
         mounted() {
             console.log("in mounted ");
-            this.gents = this.products.filter(function(p) {
+            this.gents = this.Rent.filter(function(p) {
                 return p.department == "Gents";
             });
-            this.ladies = this.products.filter(function(p) {
+            this.ladies = this.Rent.filter(function(p) {
                 return p.department == "Ladies";
             });
         },
@@ -125,12 +125,12 @@
 
             updateCart: function() {
                 var sum = 0;
-                this.inCart = this.products.filter(function(p) {
+                this.inCart = this.Rent.filter(function(p) {
                     sum += p.quantity * p.price;
                     return p.quantity > 0;
                 });
                 this.total = sum;
-                this.chartData = this.products.slice();
+                this.chartData = this.Rent.slice();
             }
         },
 
@@ -141,111 +141,11 @@
                 total: 0,
                 ladies: [],
                 gents: [],
-                products: [{
-                        id: "1",
-                        department: "Gents",
-                        name: "Denim Men's Shirts",
-                        desc: "Passion, dedication, hard work and creativity",
-                        image: "https://cdn.stocksnap.io/img-thumbs/960w/GAVVVYCGXC.jpg",
-                        price: 450,
-                        quantity: 0
-                    },
-                    {
-                        id: "2",
-                        department: "Ladies",
-                        name: "RUN Hoodies",
-                        desc: "Top-quality, instant-favorite sweatshirt",
-                        image: "https://cdn.stocksnap.io/img-thumbs/960w/UHAQDIYT6X.jpg",
-                        price: 600,
-                        quantity: 0
-                    },
-                    {
-                        id: "3",
-                        department: "Gents",
-                        name: "Men's Lightweight Coat",
-                        desc: "Signature Buck appliqué, and triple needle stitching ",
-                        image: "https://cdn.stocksnap.io/img-thumbs/960w/PJY3Y7010M.jpg",
-                        price: 2500,
-                        quantity: 0
-                    },
-                    {
-                        id: "4",
-                        department: "Ladies",
-                        name: "Story Story Tee",
-                        desc: "This is an ultra soft T-shirt with a stylish loose and extra long fit ",
-                        image: "https://cdn.stocksnap.io/img-thumbs/960w/GCJ7VU3PZ0.jpg",
-                        price: 340,
-                        quantity: 0
-                    }
-                ],
-                countries: [{
-                        name: "Australia",
-                        imageSrc: "https://play.nativescript.org/dist/assets/img/flags/au.png"
-                    },
-                    {
-                        name: "Belgium",
-                        imageSrc: "https://play.nativescript.org/dist/assets/img/flags/be.png"
-                    },
-                    {
-                        name: "Bulgaria",
-                        imageSrc: "https://play.nativescript.org/dist/assets/img/flags/bg.png"
-                    },
-                    {
-                        name: "Canada",
-                        imageSrc: "https://play.nativescript.org/dist/assets/img/flags/ca.png"
-                    },
-                    {
-                        name: "Switzerland",
-                        imageSrc: "https://play.nativescript.org/dist/assets/img/flags/ch.png"
-                    },
-                    {
-                        name: "China",
-                        imageSrc: "https://play.nativescript.org/dist/assets/img/flags/cn.png"
-                    },
-                    {
-                        name: "Czech Republic",
-                        imageSrc: "https://play.nativescript.org/dist/assets/img/flags/cz.png"
-                    },
-                    {
-                        name: "Germany",
-                        imageSrc: "https://play.nativescript.org/dist/assets/img/flags/de.png"
-                    },
-                    {
-                        name: "Spain",
-                        imageSrc: "https://play.nativescript.org/dist/assets/img/flags/es.png"
-                    },
-                    {
-                        name: "Ethiopia",
-                        imageSrc: "https://play.nativescript.org/dist/assets/img/flags/et.png"
-                    },
-                    {
-                        name: "Croatia",
-                        imageSrc: "https://play.nativescript.org/dist/assets/img/flags/hr.png"
-                    },
-                    {
-                        name: "Hungary",
-                        imageSrc: "https://play.nativescript.org/dist/assets/img/flags/hu.png"
-                    },
-                    {
-                        name: "Italy",
-                        imageSrc: "https://play.nativescript.org/dist/assets/img/flags/it.png"
-                    },
-                    {
-                        name: "Jamaica",
-                        imageSrc: "https://play.nativescript.org/dist/assets/img/flags/jm.png"
-                    },
-                    {
-                        name: "Romania",
-                        imageSrc: "https://play.nativescript.org/dist/assets/img/flags/ro.png"
-                    },
-                    {
-                        name: "Russia",
-                        imageSrc: "https://play.nativescript.org/dist/assets/img/flags/ru.png"
-                    },
-                    {
-                        name: "United States",
-                        imageSrc: "https://play.nativescript.org/dist/assets/img/flags/us.png"
-                    }
+                Rent: [
+      { id: 1, title: "半山自住品味靚裝-三房兩廁-中高層開揚景觀", estate: "Robinson Heights", url: "https://i1.28hse.com/2019/09/938689_2019094721.jpg", bedroom: 3, area: 899, tenant: 5, rent: 43000, property: "dummy" },
+      { id: 2, title: "銅鑼灣2房2廳。即租即住。優質罕盤。", estate: "Hoi deen Court", url: "https://i1.28hse.com/2019/10/951089_2019104698.jpg", bedroom: 2, area: 700, tenant: 3, rent: 26500, property: "dummy" },
+      { id: 3, title: "形品星寓。3分鐘到地鐵站", estate: "Lime Stardom", url: "https://i1.28hse.com/2019/09/930790_2019095031.jpg", bedroom: 1, area: 390, tenant: 2, rent: 19000, property: "dummy" },
+      { id: 4, title: "中上環服務式住宅 2分鐘到地鐵", estate: "AKVO Hotel", url: " https://i1.28hse.com/2019/10/955789_2019101877.jpg", bedroom: 1, area: 605, tenant: 2, rent: 35000, property: "dummy" }
                 ]
             };
         }
