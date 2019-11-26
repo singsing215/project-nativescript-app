@@ -3,17 +3,17 @@
 
         <ScrollView orientation="vertical">
             <StackLayout orientation="vertical" margin="10" class="form">
-                <Image :src="selectedProduct.image" height="300"
+                <Image :src="selectedRent.image" height="300"
                     stretch="aspectFill" />
-                <Label :text="selectedProduct.name" margin="10" class="h2" />
-                <Label :text="selectedProduct.desc" class="body" />
-                <Label :text="'Unit Price: $' + selectedProduct.price"
+                <Label :text="selectedRent.name" margin="10" class="h2" />
+                <Label :text="selectedRent.desc" class="body" />
+                <Label :text="'Unit Price: $' + selectedRent.price"
                     margin="10" class="text-right" />
                 <Label text="Quantity" class="h3" />
                 <TextField v-model="textFieldValue" hint="Enter text..."
                     class="input input-border" keyboardType="phone" />
                 <Label
-                    :text="'SubTotal: $' + textFieldValue * selectedProduct.price"
+                    :text="'SubTotal: $' + textFieldValue * selectedRent.price"
                     class="h3" margin="10" />
                 <Button text="Add to Cart" @tap="onButtonTap"
                     class="btn btn-primary btn-rounded-lg" />
@@ -25,7 +25,7 @@
 
 <script>
     export default {
-        props: ["selectedProduct", "$delegate"],
+        props: ["selectedRent", "$delegate"],
 
         methods: {
             onButtonTap() {
@@ -38,7 +38,7 @@
                             cancelButtonText:"Cancel"
                             }); 
 
-                if (result) { this.selectedProduct.quantity = parseInt(this.textFieldValue) || 0; 
+                if (result) { this.selectedRent.quantity = parseInt(this.textFieldValue) || 0; 
                             this.$delegate.updateCart(); 
                             } 
                             }
@@ -46,7 +46,7 @@
 
                             data() {
                                 return {
-                                    textFieldValue: this.selectedProduct
+                                    textFieldValue: this.selectedRent
                                         .quantity || ""
                                 };
                             }

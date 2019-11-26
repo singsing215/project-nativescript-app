@@ -99,10 +99,10 @@
     export default {
         mounted() {
             console.log("in mounted ");
-            this.gents = this.Rent.filter(function(p) {
+            this.gents = this.Rents.filter(function(p) {
                 return p.department == "Gents";
             });
-            this.ladies = this.Rent.filter(function(p) {
+            this.ladies = this.Rents.filter(function(p) {
                 return p.department == "Ladies";
             });
         },
@@ -125,12 +125,12 @@
 
             updateCart: function() {
                 var sum = 0;
-                this.inCart = this.Rent.filter(function(p) {
+                this.inCart = this.Rents.filter(function(p) {
                     sum += p.quantity * p.price;
                     return p.quantity > 0;
                 });
                 this.total = sum;
-                this.chartData = this.Rent.slice();
+                this.chartData = this.Rents.slice();
             }
         },
 
@@ -141,7 +141,7 @@
                 total: 0,
                 ladies: [],
                 gents: [],
-                Rent: [
+                Rents: [
       { id: 1, title: "半山自住品味靚裝-三房兩廁-中高層開揚景觀", estate: "Robinson Heights", url: "https://i1.28hse.com/2019/09/938689_2019094721.jpg", bedroom: 3, area: 899, tenant: 5, rent: 43000, property: "dummy" },
       { id: 2, title: "銅鑼灣2房2廳。即租即住。優質罕盤。", estate: "Hoi deen Court", url: "https://i1.28hse.com/2019/10/951089_2019104698.jpg", bedroom: 2, area: 700, tenant: 3, rent: 26500, property: "dummy" },
       { id: 3, title: "形品星寓。3分鐘到地鐵站", estate: "Lime Stardom", url: "https://i1.28hse.com/2019/09/930790_2019095031.jpg", bedroom: 1, area: 390, tenant: 2, rent: 19000, property: "dummy" },
