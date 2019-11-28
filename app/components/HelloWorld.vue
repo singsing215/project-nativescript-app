@@ -34,11 +34,11 @@
                 </TabContentItem>
                 <!-- <Label text="Estates Page" class="h2 text-center"> -->
                 <TabContentItem>
-                    <ListView for="estate in estates">
+                    <ListView for="feed in feeds" @itemTap="onItemTap2">
                         <v-template>
                             <FlexboxLayout flexDirection="row">
-                                <Label :text="estate.name" class="t-12"
-                                    style="width: 60%" />
+                                <Label :text="feed.estate" margin="10"
+                                    class="h2" />
                             </FlexboxLayout>
                         </v-template>
                     </ListView>
@@ -60,6 +60,7 @@
 
 <script>
     import ProductDetail from "./ProductDetail";
+    import Title from "./Title";
     export default {
         methods: {
             onItemTap: function(args) {
@@ -74,25 +75,25 @@
                         $delegate: this
                     }
                 });
+            },
+            onItemTap2: function(args) {
+                console.log("Item with index: " + args.index + " tapped");
+                console.log("Product selected: " + args.item.name);
+                this.$navigateTo(Title, {
+                    transition: {},
+                    transitionIOS: {},
+                    transitionAndroid: {},
+                    props: {
+                        selectedProduct: args.item,
+                        $delegate: this
+                    }
+                });
             }
         },
 
         data() {
             return {
-                feeds: [],
-                estates: [{
-                        name: "Robinson Heights"
-                    },
-                    {
-                        name: "Hoi deen Court"
-                    },
-                    {
-                        name: "Lime Stardom"
-                    },
-                    {
-                        name: "AKVO Hotel"
-                    }
-                ]
+                feeds: []
             };
         },
 
