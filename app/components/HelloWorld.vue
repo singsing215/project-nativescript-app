@@ -2,7 +2,7 @@
     <Page>
         <ActionBar title="Real Estate Rental System" />
         <StackLayout>
-            <BottomNavigation>
+            <BottomNavigation height="400px">
                 <TabStrip>
                     <TabStripItem>
                         <Label text="Home"></Label>
@@ -23,7 +23,7 @@
                 </TabStrip>
                 <!-- <Label text="Home Page" class="h2 text-center"> -->
                 <TabContentItem>
-                    <ListView for="feed in feeds">
+                    <ListView for="feed in feeds" @itemTap="onItemTap">
                         <v-template>
                             <StackLayout height="300">
                                 <Image :src="feed.url" stretch="aspectFill" />
@@ -34,7 +34,7 @@
                 </TabContentItem>
                 <!-- <Label text="Estates Page" class="h2 text-center"> -->
                 <TabContentItem>
-                    <ListView for="estate in estates" @itemTap="onItemTap">
+                    <ListView for="estate in estates">
                         <v-template>
                             <FlexboxLayout flexDirection="row">
                                 <Label :text="estate.name" class="t-12"
@@ -45,7 +45,7 @@
                 </TabContentItem>
                 <!-- <Label text="Bedrooms Page" class="h2 text-center"> -->
                 <TabContentItem>
-                    <WebView src="http://158.182.111.122:1337" />
+                    <WebView src="http://192.168.1.103:1337" />
                 </TabContentItem>
                 <!-- <Label text="Profile Page" class="h2 text-center"> -->
                 <TabContentItem>
@@ -59,10 +59,21 @@
 </template>
 
 <script>
+    import ProductDetail from "./ProductDetail";
     export default {
         methods: {
             onItemTap: function(args) {
                 console.log("Item with index: " + args.index + " tapped");
+                console.log("Product selected: " + args.item.name);
+                this.$navigateTo(ProductDetail, {
+                    transition: {},
+                    transitionIOS: {},
+                    transitionAndroid: {},
+                    props: {
+                        selectedProduct: args.item,
+                        $delegate: this
+                    }
+                });
             }
         },
 
@@ -82,12 +93,11 @@
                         name: "AKVO Hotel"
                     }
                 ]
-
             };
         },
 
         async mounted() {
-            global.rootURL = "http://158.182.111.122:1337";
+            global.rootURL = "http://192.168.1.103:1337";
             var response = await fetch(global.rootURL + "/rent/json", {
                 method: "GET",
                 credentials: "same-origin"

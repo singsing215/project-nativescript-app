@@ -1,57 +1,21 @@
 <template>
     <Page>
-
         <ScrollView orientation="vertical">
             <StackLayout orientation="vertical" margin="10" class="form">
-                <Image :src="selectedRent.image" height="300"
+                <Image :src="selectedProduct.url" height="300"
                     stretch="aspectFill" />
-                <Label :text="selectedRent.name" margin="10" class="h2" />
-                <Label :text="selectedRent.desc" class="body" />
-                <Label :text="'Unit Price: $' + selectedRent.price"
-                    margin="10" class="text-right" />
-                <Label text="Quantity" class="h3" />
-                <TextField v-model="textFieldValue" hint="Enter text..."
-                    class="input input-border" keyboardType="phone" />
-                <Label
-                    :text="'SubTotal: $' + textFieldValue * selectedRent.price"
-                    class="h3" margin="10" />
-                <Button text="Add to Cart" @tap="onButtonTap"
+                <Label :text="selectedProduct.title" margin="10" class="h2" />
+                <Button text="Move-in" @tap="onButtonTap"
+                    class="btn btn-primary btn-rounded-lg" />
+                <Button text="Address" @tap="onButtonTap"
                     class="btn btn-primary btn-rounded-lg" />
             </StackLayout>
         </ScrollView>
-
     </Page>
 </template>
 
 <script>
     export default {
-        props: ["selectedRent", "$delegate"],
-
-        methods: {
-            onButtonTap() {
-                console.log("Button was pressed");
-
-                var result = confirm({
-                            title:"Confirm?",
-                            message:"This item will added to your shopping cart.", 
-                            okButtonText:"Yes", 
-                            cancelButtonText:"Cancel"
-                            }); 
-
-                if (result) { this.selectedRent.quantity = parseInt(this.textFieldValue) || 0; 
-                            this.$delegate.updateCart(); 
-                            } 
-                            }
-                            },
-
-                            data() {
-                                return {
-                                    textFieldValue: this.selectedRent
-                                        .quantity || ""
-                                };
-                            }
-                        };
+        props: ["selectedProduct", "$delegate"]
+    };
 </script>
-
-<style>
-</style>
