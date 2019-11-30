@@ -80,7 +80,6 @@
 
 <script>
     import ProductDetail from "./ProductDetail";
-    import Title from "./Title";
     import Bedroom from "./Bedroom";
     import Bedroom3 from "./Bedroom3";
     import Robinson from "./Robinson";
