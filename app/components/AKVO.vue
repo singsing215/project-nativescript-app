@@ -1,9 +1,10 @@
 <template>
-	<page>
-		<ListView for="feed in feeds" style="height:1250px" @itemTap="onItemTap">
-			<v-template>
-				<FlexboxLayout flexDirection="row">
-					<Label :text="feed.title" margin="10" class="h2" />
+    <page>
+        <ListView for="feed in feeds" style="height:1250px"
+            @itemTap="onItemTap">
+            <v-template>
+                <FlexboxLayout flexDirection="row">
+                    <Label :text="feed.title" margin="10" class="h2" />
                 </FlexboxLayout>
             </v-template>
         </ListView>
@@ -36,7 +37,8 @@
         },
         async mounted() {
             var response = await fetch(
-                global.rootURL + "/rent/jjpaginate?maxarea=3", {
+                global.rootURL +
+                "/rent/jpaginate?estate=AKVO+Hotel", {
                     method: "GET",
                     credentials: "same-origin"
                 }

@@ -1,22 +1,29 @@
 <template>
-    <Page>
-        <ListView for="feed in feeds" @itemTap="onItemTap">
+    <page>
+        <ListView for="feed in feeds" style="height:1250px"
+            @itemTap="onItemTap">
             <v-template>
                 <FlexboxLayout flexDirection="row">
-                    <Label :text="selectedProduct.title" margin="10"
-                        class="h2" />
+                    <Label :text="feed.title" margin="10" class="h2" />
                 </FlexboxLayout>
             </v-template>
         </ListView>
-    </Page>
+    </page>
 </template>
 
 <script>
     import ProductDetail from "./ProductDetail";
     export default {
         props: ["selectedProduct", "$delegate"],
+        data() {
+            return {
+                feeds: []
+            };
+        },
         methods: {
             onItemTap: function(args) {
+                console.log("Item with index: " + args.index + " tapped");
+                console.log("Product selected: " + args.item.name);
                 this.$navigateTo(ProductDetail, {
                     transition: {},
                     transitionIOS: {},
@@ -28,22 +35,15 @@
                 });
             }
         },
-        data() {
-            return {
-                feeds: []
-            };
-        },
         async mounted() {
-            var response = await fetch(global.rootURL + "/rent/json", {
-                method: "GET",
-                credentials: "same-origin"
-            });
-            if (response.ok) {
-                this.feeds = await response.json();
-                console.log(JSON.stringify(this.feeds));
-            } else {
-                console.log(response.statusText);
-            }
+            var response = await fetch(
+                global.rootURL +
+                "/rent/jpaginate?estate=Lime+Stardom", {
+                    method: "GET",
+                    credentials: "same-origin"
+                }
+            );
+            this.feeds = await response.json();
         }
     };
 </script>

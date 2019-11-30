@@ -1,7 +1,7 @@
 <template>
     <page>
-        
-        <ListView for="feed in feeds" style="height:1250px">
+        <ListView for="feed in feeds" style="height:1250px"
+            @itemTap="onItemTap">
             <v-template>
                 <FlexboxLayout flexDirection="row">
                     <Label :text="feed.title" margin="10" class="h2" />
@@ -12,12 +12,28 @@
 </template>
 
 <script>
+    import ProductDetail from "./ProductDetail";
     export default {
-        props: ["selectedProduct3", "$delegate"],
+        props: ["selectedProduct", "$delegate"],
         data() {
             return {
                 feeds: []
             };
+        },
+        methods: {
+            onItemTap: function(args) {
+                console.log("Item with index: " + args.index + " tapped");
+                console.log("Product selected: " + args.item.name);
+                this.$navigateTo(ProductDetail, {
+                    transition: {},
+                    transitionIOS: {},
+                    transitionAndroid: {},
+                    props: {
+                        selectedProduct: args.item,
+                        $delegate: this
+                    }
+                });
+            }
         },
         async mounted() {
             var response = await fetch(

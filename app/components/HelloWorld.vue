@@ -23,42 +23,55 @@
                 </TabStrip>
                 <!-- <Label text="Home Page" class="h2 text-center"> -->
                 <TabContentItem>
-                    <ListView for="feed in feeds" @itemTap="onItemTap">
+                    <ListView for="home in homes" @itemTap="onItemTap">
                         <v-template>
                             <StackLayout height="300">
-                                <Image :src="feed.url" stretch="aspectFill" />
-                                <Label :text="feed.title" class="h2" />
+                                <Image :src="home.url" stretch="aspectFill" />
+                                <Label :text="home.title" class="h2" />
                             </StackLayout>
                         </v-template>
                     </ListView>
                 </TabContentItem>
                 <!-- <Label text="Estates Page" class="h2 text-center"> -->
                 <TabContentItem>
-                    <ListView for="feed in feeds" @itemTap="onItemTap2"
-                        style="height:1250px">
-                        <v-template>
-                            <FlexboxLayout flexDirection="row">
-                                <Label :text="feed.estate" margin="10"
-                                    class="h2" />
-                            </FlexboxLayout>
-                        </v-template>
-                    </ListView>
+                    <ScrollView orientation="vertical">
+                        <StackLayout orientation="vertical" margin="10"
+                            class="form">
+                            <Button text="Robinson Heights"
+                                @tap="onButtonTap3"
+                                class="btn btn-primary btn rounded-lg" />
+                            <Button text="Hoi deen Court" @tap="onButtonTap4"
+                                class="btn btn-primary btn rounded-lg" />
+                            <Button text="Lime Stardom" @tap="onButtonTap5"
+                                class="btn btn-primary btn rounded-lg" />
+                            <Button text="AKVO Hotel" @tap="onButtonTap6"
+                                class="btn btn-primary btn rounded-lg" />
+                        </StackLayout>
+                    </ScrollView>
                 </TabContentItem>
                 <!-- <Label text="Bedrooms Page" class="h2 text-center"> -->
                 <TabContentItem>
-                    <ListView for="bedroom in bedrooms" @itemTap="onItemTap3"
-                        style="height:1250px">
-                        <v-template>
-                            <FlexboxLayout flexDirection="row">
-                                <Label :text="bedroom.name" margin="10"
-                                    class="h2" />
-                            </FlexboxLayout>
-                        </v-template>
-                    </ListView>
+                    <ScrollView orientation="vertical">
+                        <StackLayout orientation="vertical" margin="10"
+                            class="form">
+                            <Button text="Bedrooms<=2" @tap="onButtonTap"
+                                class="btn btn-primary btn rounded-lg" />
+                            <Button text="Bedrooms>=3" @tap="onButtonTap2"
+                                class="btn btn-primary btn rounded-lg" />
+                        </StackLayout>
+                    </ScrollView>
                 </TabContentItem>
                 <!-- <Label text="Profile Page" class="h2 text-center"> -->
                 <TabContentItem>
-                    <Label text="hello world!" />
+                    <ScrollView orientation="vertical">
+                        <StackLayout orientation="vertical" margin="10"
+                            class="form">
+                            <Button text="Bedrooms<=2" @tap="onButtonTap"
+                                class="btn btn-primary btn rounded-lg" />
+                            <Button text="Bedrooms>=3" @tap="onButtonTap2"
+                                class="btn btn-primary btn rounded-lg" />
+                        </StackLayout>
+                    </ScrollView>
                 </TabContentItem>
             </BottomNavigation>
         </StackLayout>
@@ -70,6 +83,10 @@
     import Title from "./Title";
     import Bedroom from "./Bedroom";
     import Bedroom3 from "./Bedroom3";
+    import Robinson from "./Robinson";
+    import Hoi from "./Hoi";
+    import Lime from "./Lime";
+    import AKVO from "./AKVO";
     export default {
         methods: {
             onItemTap: function(args) {
@@ -91,7 +108,11 @@
                 this.$navigateTo(Title, {
                     transition: {},
                     transitionIOS: {},
-                    transitionAndroid: {}
+                    transitionAndroid: {},
+                    props: {
+                        selectedProduct2: args.item,
+                        $delegate: this
+                    }
                 });
             },
             onItemTap3: function(args) {
@@ -106,35 +127,50 @@
                         $delegate: this
                     }
                 });
+            },
+            onButtonTap() {
+                console.log("Button was pressed");
+                this.$navigateTo(Bedroom);
+            },
+            onButtonTap2() {
+                console.log("Button was pressed");
+                this.$navigateTo(Bedroom3);
+            },
+            onButtonTap3() {
+                console.log("Button was pressed");
+                this.$navigateTo(Robinson);
+            },
+            onButtonTap4() {
+                console.log("Button was pressed");
+                this.$navigateTo(Hoi);
+            },
+            onButtonTap5() {
+                console.log("Button was pressed");
+                this.$navigateTo(Lime);
+            },
+            onButtonTap6() {
+                console.log("Button was pressed");
+                this.$navigateTo(AKVO);
             }
         },
 
         data() {
             return {
-                feeds: [],
-                bedrooms: [{
-                        name: "Bedrooms<=2",
-                        url: "/rent/jpaginate?maxarea=2"
-                    },
-                    {
-                        name: "Bedrooms>=3",
-                        url: "/rent/jjpaginate?maxarea=3"
-                    }
-                ]
+                homes: [],
             };
         },
 
         async mounted() {
-            var response = await fetch(global.rootURL + "/rent/jhome", {
+            var home = await fetch(global.rootURL + "/rent/jhome", {
                 method: "GET",
                 credentials: "same-origin"
             });
-            if (response.ok) {
-                this.feeds = await response.json();
-                console.log(JSON.stringify(this.feeds));
-            } else {
-                console.log(response.statusText);
-            }
+            this.homes = await home.json();
+            var estate = await fetch(global.rootURL + "/rent/json", {
+                method: "GET",
+                credentials: "same-origin"
+            });
+            this.estates = await estate.json();
         }
     };
 </script>
