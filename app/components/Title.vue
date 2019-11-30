@@ -34,13 +34,10 @@
             };
         },
         async mounted() {
-            global.rootURL = "http://192.168.1.103:1337";
-            var response = await fetch(
-                global.rootURL + "/rent/json", {
-                    method: "GET",
-                    credentials: "same-origin"
-                }
-            );
+            var response = await fetch(global.rootURL + "/rent/json", {
+                method: "GET",
+                credentials: "same-origin"
+            });
             if (response.ok) {
                 this.feeds = await response.json();
                 console.log(JSON.stringify(this.feeds));

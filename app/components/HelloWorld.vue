@@ -34,7 +34,8 @@
                 </TabContentItem>
                 <!-- <Label text="Estates Page" class="h2 text-center"> -->
                 <TabContentItem>
-                    <ListView for="feed in feeds" @itemTap="onItemTap2">
+                    <ListView for="feed in feeds" @itemTap="onItemTap2"
+                        style="height:1250px">
                         <v-template>
                             <FlexboxLayout flexDirection="row">
                                 <Label :text="feed.estate" margin="10"
@@ -45,13 +46,19 @@
                 </TabContentItem>
                 <!-- <Label text="Bedrooms Page" class="h2 text-center"> -->
                 <TabContentItem>
-                    <WebView src="http://192.168.1.103:1337" />
+                    <ListView for="bedroom in bedrooms" @itemTap="onItemTap3"
+                        style="height:1250px">
+                        <v-template>
+                            <FlexboxLayout flexDirection="row">
+                                <Label :text="bedroom.name" margin="10"
+                                    class="h2" />
+                            </FlexboxLayout>
+                        </v-template>
+                    </ListView>
                 </TabContentItem>
                 <!-- <Label text="Profile Page" class="h2 text-center"> -->
                 <TabContentItem>
-                    <GridLayout>
-                        </Label>
-                    </GridLayout>
+                    <Label text="hello world!" />
                 </TabContentItem>
             </BottomNavigation>
         </StackLayout>
@@ -61,6 +68,8 @@
 <script>
     import ProductDetail from "./ProductDetail";
     import Title from "./Title";
+    import Bedroom from "./Bedroom";
+    import Bedroom3 from "./Bedroom3";
     export default {
         methods: {
             onItemTap: function(args) {
@@ -82,9 +91,18 @@
                 this.$navigateTo(Title, {
                     transition: {},
                     transitionIOS: {},
+                    transitionAndroid: {}
+                });
+            },
+            onItemTap3: function(args) {
+                console.log("Item with index: " + args.index + " tapped");
+                console.log("Product selected: " + args.item.name);
+                this.$navigateTo(Bedroom, {
+                    transition: {},
+                    transitionIOS: {},
                     transitionAndroid: {},
                     props: {
-                        selectedProduct: args.item,
+                        selectedProduct3: args.item,
                         $delegate: this
                     }
                 });
@@ -93,13 +111,21 @@
 
         data() {
             return {
-                feeds: []
+                feeds: [],
+                bedrooms: [{
+                        name: "Bedrooms<=2",
+                        url: "/rent/jpaginate?maxarea=2"
+                    },
+                    {
+                        name: "Bedrooms>=3",
+                        url: "/rent/jjpaginate?maxarea=3"
+                    }
+                ]
             };
         },
 
         async mounted() {
-            global.rootURL = "http://192.168.1.103:1337";
-            var response = await fetch(global.rootURL + "/rent/json", {
+            var response = await fetch(global.rootURL + "/rent/jhome", {
                 method: "GET",
                 credentials: "same-origin"
             });
