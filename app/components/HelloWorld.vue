@@ -25,9 +25,11 @@
                 <TabContentItem>
                     <ListView for="home in homes" @itemTap="onItemTap">
                         <v-template>
-                            <StackLayout height="300">
-                                <Image :src="home.url" stretch="aspectFill" />
-                                <Label :text="home.title" class="h2" />
+                            <StackLayout>
+                                <Image :src="home.url" height="300"
+                                    stretch="aspectFill" />
+                                <Label :text="home.title" margin="10"
+                                    class="h2" />
                             </StackLayout>
                         </v-template>
                     </ListView>
@@ -155,7 +157,7 @@
 
         data() {
             return {
-                homes: [],
+                homes: []
             };
         },
 
