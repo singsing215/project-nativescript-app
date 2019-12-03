@@ -15,8 +15,7 @@
                     margin="3" />
                 <Label :text="'Area: ' + selectedProduct.area" class="h3"
                     margin="3" />
-                <Label :text="'Address:'" class="h3"
-                    margin="3" />
+                <Label :text="'Address:'" class="h3" margin="3" />
                 <WebView :src="selectedProduct.map" height="300"
                     stretch="aspectFill" />
                 <Button text="Move-in" @tap="onButtonTap"
@@ -27,20 +26,21 @@
 </template>
 
 <script>
+    import Bedroom from "./Bedroom";
     export default {
         props: ["selectedProduct", "$delegate"],
         methods: {
-            async onButtonTap2(args) {
+            async onButtonTap() {
                 console.log("Button was pressed");
-                this.$navigateTo(MapR, {
-                    transition: {},
-                    transitionIOS: {},
-                    transitionAndroid: {},
-                    props: {
-                        selectedProduct: args.item,
-                        $delegate: this
-                    }
+                var result = await confirm({
+                    title: "Are you sure?",
+                    message: "to move in  this appartment?",
+                    okButtonText: "Yes ",
+                    cancelButtonText: "No "
                 });
+                if (result) {
+                    this.$navigateTo(Bedroom);
+                }
             }
         },
         async mounted() {

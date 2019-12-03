@@ -63,15 +63,23 @@
                         </StackLayout>
                     </ScrollView>
                 </TabContentItem>
-                <!-- <Label text="Profile Page" class="h2 text-center"> -->
+                <!-- "Profile Page" -->
                 <TabContentItem>
                     <ScrollView orientation="vertical">
                         <StackLayout orientation="vertical" margin="10"
                             class="form">
-                            <Button text="Bedrooms<=2" @tap="onButtonTap"
-                                class="btn btn-primary btn rounded-lg" />
-                            <Button text="Bedrooms>=3" @tap="onButtonTap2"
-                                class="btn btn-primary btn rounded-lg" />
+                            <Image
+                                src="https://hbimg.huabanimg.com/4ba5c23dab24b6cb77cd8794a4b64b6e54998c31189a-fYHrJF_fw658"
+                                stretch="aspectFill" width="50" height="50" id="img1" float="left"
+                                ; />
+                            <Label text="kenny" margin="10"
+                                class="text-right" style="font-size:30px;"/>
+                            <Button text="Logoff/Login" @tap="onButtonTap7"
+                                class="btn btn-primary btn-rounded-lg"
+                                type="submit" />
+                            <Button text="My Rentals" @tap="onButtonTap8"
+                                class="btn btn-primary btn-rounded-lg"
+                                type="submit" />
                         </StackLayout>
                     </ScrollView>
                 </TabContentItem>
@@ -88,6 +96,8 @@
     import Hoi from "./Hoi";
     import Lime from "./Lime";
     import AKVO from "./AKVO";
+    import Login from "./Login";
+    import Myrentals from "./Myrentals";
     export default {
         methods: {
             onItemTap: function(args) {
@@ -152,6 +162,14 @@
             onButtonTap6() {
                 console.log("Button was pressed");
                 this.$navigateTo(AKVO);
+            },
+            onButtonTap7() {
+                console.log("Button was pressed");
+                this.$navigateTo(Login);
+            },
+            onButtonTap8() {
+                console.log("Button was pressed");
+                this.$navigateTo(Myrentals);
             }
         },
 
@@ -186,4 +204,8 @@
     .description-label {
         margin-bottom: 15;
     }
+
+    #img1 {
+    float: left;
+}
 </style>
