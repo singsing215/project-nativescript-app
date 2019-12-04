@@ -15,10 +15,13 @@
                     margin="3" />
                 <Label :text="'Area: ' + selectedProduct.area" class="h3"
                     margin="3" />
-                <Label :text="'Address:'" class="h3" margin="3" />
+                <!-- <Label :text="'Address:'" class="h3" margin="3" />
                 <WebView :src="selectedProduct.map" height="300"
-                    stretch="aspectFill" />
-                <Button text="Move-in" @tap="onButtonTap(selectedProduct.id)"
+                    stretch="aspectFill" /> -->
+                <Button text="Move-in" @tap="onButtonTap1(selectedProduct.id)"
+                    class="btn btn-primary btn-rounded-lg" />
+                <Button text="Address"
+                    @tap="onButtonTap2(selectedProduct.estate)"
                     class="btn btn-primary btn-rounded-lg" />
             </StackLayout>
         </ScrollView>
@@ -26,11 +29,14 @@
 </template>
 
 <script>
-    import Bedroom from "./Bedroom";
+    import MapR from "./MapR";
+    import MapH from "./MapH";
+    import MapL from "./MapL";
+    import MapA from "./MapA";
     export default {
         props: ["selectedProduct", "$delegate"],
         methods: {
-            async onButtonTap(id) {
+            async onButtonTap1(id) {
                 console.log(id);
                 var result = await confirm({
                     title: "Are you sure?",
@@ -59,6 +65,15 @@
                 } else {
                     alert("cancelled");
                 }
+            },
+
+            async onButtonTap2(estate) {
+                console.log(estate);
+                if (estate == "Robinson Heights"){ this.$navigateTo(MapR)};
+                if (estate == "Hoi deen Court"){this.$navigateTo(MapH)};
+                if (estate == "Lime Stardom") {this.$navigateTo(MapL)};
+                if (estate == "AKVO Hotel"){ this.$navigateTo(MapA)};
+                
             }
         },
         async mounted() {
