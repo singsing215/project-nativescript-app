@@ -18,7 +18,7 @@
                 <Label :text="'Address:'" class="h3" margin="3" />
                 <WebView :src="selectedProduct.map" height="300"
                     stretch="aspectFill" />
-                <Button text="Move-in" @tap="onButtonTap"
+                <Button text="Move-in" @tap="onButtonTap(selectedProduct.id)"
                     class="btn btn-primary btn-rounded-lg" />
             </StackLayout>
         </ScrollView>
@@ -30,16 +30,34 @@
     export default {
         props: ["selectedProduct", "$delegate"],
         methods: {
-            async onButtonTap() {
-                console.log("Button was pressed");
+            async onButtonTap(id) {
+                console.log(id);
                 var result = await confirm({
                     title: "Are you sure?",
-                    message: "to move in  this appartment?",
+                    message: "to move in this appartment?",
                     okButtonText: "Yes ",
                     cancelButtonText: "No "
                 });
                 if (result) {
-                    this.$navigateTo(Bedroom);
+                    var response = await fetch(
+                        global.rootURL + "/user/2/renting/add/" +
+                        id, {
+                            method: "POST",
+                            credentials: "same-origin"
+                        }
+                    );
+                    console.log(response);
+                    if (response.ok) {
+                        var data = await response.json();
+                        alert(data.message);
+                        window.location = data.url;
+                        location.reload(true);
+                    } else {
+                        alert(response.status + ": " + response
+                            .statusText);
+                    }
+                } else {
+                    alert("cancelled");
                 }
             }
         },
