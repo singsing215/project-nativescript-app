@@ -68,18 +68,23 @@
                     <ScrollView orientation="vertical">
                         <StackLayout orientation="vertical" margin="10"
                             class="form">
-                            <Image
-                                src="https://hbimg.huabanimg.com/4ba5c23dab24b6cb77cd8794a4b64b6e54998c31189a-fYHrJF_fw658"
-                                stretch="aspectFill" width="50" height="50" id="img1" float="left"
-                                ; />
-                            <Label text="kenny" margin="10"
-                                class="text-right" style="font-size:30px;"/>
-                            <Button text="Logoff/Login" @tap="onButtonTap7"
+                            <FlexboxLayout>
+                                <Image
+                                    src="https://hbimg.huabanimg.com/4ba5c23dab24b6cb77cd8794a4b64b6e54998c31189a-fYHrJF_fw658"
+                                    stretch="aspectFill" width="50"
+                                    height="50" ; />
+                                <Label text="kenny" margin="10"
+                                    class="text-right" id="kenny" />
+                            </FlexboxLayout>
+                            <Button text="Login" @tap="onButtonTap7"
                                 class="btn btn-primary btn-rounded-lg"
-                                type="submit" />
+                                type="submit" id="login" />
+                            <Button text="Logoff" @tap="onButtonTap9"
+                                class="btn btn-primary btn-rounded-lg"
+                                type="submit" id="logout" v-show="logout" />
                             <Button text="My Rentals" @tap="onButtonTap8"
                                 class="btn btn-primary btn-rounded-lg"
-                                type="submit" />
+                                type="submit" id="myrent" />
                         </StackLayout>
                     </ScrollView>
                 </TabContentItem>
@@ -170,12 +175,26 @@
             onButtonTap8() {
                 console.log("Button was pressed");
                 this.$navigateTo(Myrentals);
+            },
+            async onButtonTap9() {
+                var response = await fetch(global.rootURL +
+                    "/user/jlogout/", {
+                        method: "POST",
+                        credentials: "same-origin"
+                    });
+                if (response.ok) {
+                    var data = await response.json();
+                    alert(data.message);
+                } else {
+                    alert(response.status + ": " + response.statusText);
+                }
             }
         },
 
         data() {
             return {
-                homes: []
+                homes: [],
+                logout:false
             };
         },
 
@@ -190,6 +209,12 @@
                 credentials: "same-origin"
             });
             this.estates = await estate.json();
+            console.log(user);
+            if (user == "kenny") {
+                this.logout = true;
+            } else {
+                this.logout = false;
+            }
         }
     };
 </script>
@@ -204,8 +229,4 @@
     .description-label {
         margin-bottom: 15;
     }
-
-    #img1 {
-    float: left;
-}
 </style>

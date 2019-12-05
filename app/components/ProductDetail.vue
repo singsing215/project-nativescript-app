@@ -15,11 +15,9 @@
                     margin="3" />
                 <Label :text="'Area: ' + selectedProduct.area" class="h3"
                     margin="3" />
-                <!-- <Label :text="'Address:'" class="h3" margin="3" />
-                <WebView :src="selectedProduct.map" height="300"
-                    stretch="aspectFill" /> -->
                 <Button text="Move-in" @tap="onButtonTap1(selectedProduct.id)"
-                    class="btn btn-primary btn-rounded-lg" />
+                    class="btn btn-primary btn-rounded-lg" id="button"
+                    v-show="movein" />
                 <Button text="Address"
                     @tap="onButtonTap2(selectedProduct.estate)"
                     class="btn btn-primary btn-rounded-lg" />
@@ -69,13 +67,27 @@
 
             async onButtonTap2(estate) {
                 console.log(estate);
-                if (estate == "Robinson Heights"){ this.$navigateTo(MapR)};
-                if (estate == "Hoi deen Court"){this.$navigateTo(MapH)};
-                if (estate == "Lime Stardom") {this.$navigateTo(MapL)};
-                if (estate == "AKVO Hotel"){ this.$navigateTo(MapA)};
-                
+                if (estate == "Robinson Heights") {
+                    this.$navigateTo(MapR);
+                }
+                if (estate == "Hoi deen Court") {
+                    this.$navigateTo(MapH);
+                }
+                if (estate == "Lime Stardom") {
+                    this.$navigateTo(MapL);
+                }
+                if (estate == "AKVO Hotel") {
+                    this.$navigateTo(MapA);
+                }
             }
         },
+
+        data() {
+            return {
+                movein: false
+            };
+        },
+
         async mounted() {
             var home = await fetch(global.rootURL + "/rent/jhome", {
                 method: "GET",
@@ -87,6 +99,12 @@
                 credentials: "same-origin"
             });
             this.estates = await estate.json();
+            console.log(user);
+            if (user == "kenny") {
+                this.movein = true;
+            } else {
+                this.movein = false;
+            }
         }
     };
 </script>

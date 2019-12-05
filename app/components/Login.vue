@@ -20,22 +20,26 @@
             async onButtonTap() {
                 var username = "visitor";
                 var password = "123456";
+                console.log(user);
                 this.username = this.textFieldValue || 0;
                 this.password = parseInt(this.textFieldValue2) || 0;
-                console.log(this.username);
-                console.log(this.password);
+                // console.log(this.username);
+                // console.log(this.password);
                 var response = await fetch(global.rootURL +
                     "/user/jlogin/", {
                         method: "POST",
                         credentials: "same-origin",
-                        body: "username="+this.username+"&password="+this.password
+                        body: "username=" + this.username +
+                            "&password=" + this.password
                     });
                 if (response.ok) {
                     var data = await response.json();
+                    var user = global.user = this.username;
                     alert(data.message);
                 } else {
                     alert(response.status + ": " + response.statusText);
                 }
+                console.log(user);
             },
 
             login: function() {
