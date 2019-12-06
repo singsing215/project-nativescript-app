@@ -28,13 +28,18 @@
                             <StackLayout>
                                 <Image :src="home.url" height="300"
                                     stretch="aspectFill" />
-                                <Label :text="home.title" margin="10"
+                                <Label :text="home.title"
                                     class="h2" />
+                                <Label :text="home.estate" 
+                                    class="h3" /> 
+                                <Label :text="'Rent: $' + home.rent"
+                                     class="h3" />
                             </StackLayout>
                         </v-template>
                     </ListView>
+
                 </TabContentItem>
-                <!-- <Label text="Estates Page" class="h2 text-center"> -->
+                <!-- <Label text="Estates Page" class="h2 text-center"> --> 
                 <TabContentItem>
                     <ScrollView orientation="vertical">
                         <StackLayout orientation="vertical" margin="10"
@@ -74,7 +79,7 @@
                                     stretch="aspectFill" width="50"
                                     height="50" ; />
                                 <Label text="kenny" margin="10"
-                                    class="text-right" id="kenny" />
+                                    class="h2" id="kenny" />
                             </FlexboxLayout>
                             <Button text="Logoff/Login" @tap="onButtonTap10"
                                 class="btn btn-primary btn-rounded-lg"
@@ -220,8 +225,7 @@
 
         data() {
             return {
-                homes: [],
-                logout: true
+                homes: []
             };
         },
 
