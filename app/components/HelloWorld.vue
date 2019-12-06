@@ -76,12 +76,15 @@
                                 <Label text="kenny" margin="10"
                                     class="text-right" id="kenny" />
                             </FlexboxLayout>
-                            <Button text="Login" @tap="onButtonTap7"
+                            <Button text="Logoff/Login" @tap="onButtonTap10"
+                                class="btn btn-primary btn-rounded-lg"
+                                type="submit" />
+                            <!-- <Button text="Login" @tap="onButtonTap7"
                                 class="btn btn-primary btn-rounded-lg"
                                 type="submit" id="login" />
                             <Button text="Logoff" @tap="onButtonTap9"
                                 class="btn btn-primary btn-rounded-lg"
-                                type="submit" id="logout" v-show="logout" />
+                                type="submit" id="logout" v-show="true" /> -->
                             <Button text="My Rentals" @tap="onButtonTap8"
                                 class="btn btn-primary btn-rounded-lg"
                                 type="submit" id="myrent" />
@@ -168,25 +171,49 @@
                 console.log("Button was pressed");
                 this.$navigateTo(AKVO);
             },
-            onButtonTap7() {
-                console.log("Button was pressed");
-                this.$navigateTo(Login);
-            },
+            // onButtonTap7() {
+            //     console.log("Button was pressed");
+            //     this.$navigateTo(Login);
+            // },
             onButtonTap8() {
-                console.log("Button was pressed");
-                this.$navigateTo(Myrentals);
+                if (global.user == "kenny") {
+                    this.$navigateTo(Myrentals);
+                } else if (global.user == "") {
+                    alert("Please Login First");
+                }
             },
-            async onButtonTap9() {
-                var response = await fetch(global.rootURL +
-                    "/user/jlogout/", {
-                        method: "POST",
-                        credentials: "same-origin"
-                    });
-                if (response.ok) {
-                    var data = await response.json();
-                    alert(data.message);
-                } else {
-                    alert(response.status + ": " + response.statusText);
+            // async onButtonTap9() {
+            //     var response = await fetch(global.rootURL +
+            //         "/user/jlogout/", {
+            //             method: "POST",
+            //             credentials: "same-origin"
+            //         });
+            //     if (response.ok) {
+            //         var data = await response.json();
+            //         alert(data.message);
+            //         var user = (global.user = "");
+            //     } else {
+            //         alert(response.status + ": " + response.statusText);
+            //     }
+            // },
+            async onButtonTap10() {
+                console.log(global.user);
+                if (global.user == "kenny") {
+                    var response = await fetch(global.rootURL +
+                        "/user/jlogout/", {
+                            method: "POST",
+                            credentials: "same-origin"
+                        });
+                    if (response.ok) {
+                        var data = await response.json();
+                        alert(data.message);
+                        var user = (global.user = "");
+                    } else {
+                        alert(response.status + ": " + response
+                            .statusText);
+                    }
+                } else if (global.user == "") {
+                    this.$navigateTo(Login);
                 }
             }
         },
@@ -194,7 +221,7 @@
         data() {
             return {
                 homes: [],
-                logout:false
+                logout: true
             };
         },
 
@@ -212,6 +239,7 @@
             console.log(user);
             if (user == "kenny") {
                 this.logout = true;
+                console.log("1");
             } else {
                 this.logout = false;
             }

@@ -14,6 +14,7 @@
 </template>
 
 <script>
+    import HelloWorld from "./HelloWorld";
     export default {
         props: ["selectedProduct", "$delegate"],
         methods: {
@@ -36,16 +37,12 @@
                     var data = await response.json();
                     var user = global.user = this.username;
                     alert(data.message);
+                    // this.$navigateTo(HelloWorld);
                 } else {
                     alert(response.status + ": " + response.statusText);
                 }
                 console.log(user);
             },
-
-            login: function() {
-                console.log(this.username);
-                console.log(this.password);
-            }
         }
     };
 </script>

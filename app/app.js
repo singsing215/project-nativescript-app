@@ -5,6 +5,7 @@ import HelloWorld from './components/HelloWorld';
 // Uncommment the following to see NativeScript-Vue output logs
 Vue.config.silent = false;
 global.rootURL = "http://158.182.111.122:1337";
+global.user = "";
 
 new Vue({
 
@@ -17,3 +18,4 @@ new Vue({
         HelloWorld
     }
 }).$start();
+

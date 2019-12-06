@@ -17,7 +17,7 @@
                     margin="3" />
                 <Button text="Move-in" @tap="onButtonTap1(selectedProduct.id)"
                     class="btn btn-primary btn-rounded-lg" id="button"
-                    v-show="movein" />
+                     />
                 <Button text="Address"
                     @tap="onButtonTap2(selectedProduct.estate)"
                     class="btn btn-primary btn-rounded-lg" />
@@ -36,32 +36,36 @@
         methods: {
             async onButtonTap1(id) {
                 console.log(id);
-                var result = await confirm({
-                    title: "Are you sure?",
-                    message: "to move in this appartment?",
-                    okButtonText: "Yes ",
-                    cancelButtonText: "No "
-                });
-                if (result) {
-                    var response = await fetch(
-                        global.rootURL + "/user/2/renting/add/" +
-                        id, {
-                            method: "POST",
-                            credentials: "same-origin"
+                if (global.user == "kenny") {
+                    var result = await confirm({
+                        title: "Are you sure?",
+                        message: "to move in this appartment?",
+                        okButtonText: "Yes ",
+                        cancelButtonText: "No "
+                    });
+                    if (result) {
+                        var response = await fetch(
+                            global.rootURL + "/user/2/renting/add/" +
+                            id, {
+                                method: "POST",
+                                credentials: "same-origin"
+                            }
+                        );
+                        console.log(response);
+                        if (response.ok) {
+                            var data = await response.json();
+                            alert(data.message);
+                            window.location = data.url;
+                            location.reload(true);
+                        } else {
+                            alert(response.status + ": " + response
+                                .statusText);
                         }
-                    );
-                    console.log(response);
-                    if (response.ok) {
-                        var data = await response.json();
-                        alert(data.message);
-                        window.location = data.url;
-                        location.reload(true);
                     } else {
-                        alert(response.status + ": " + response
-                            .statusText);
+                        alert("cancelled");
                     }
-                } else {
-                    alert("cancelled");
+                } else if (global.user == "") {
+                    alert("Please Login First");
                 }
             },
 
@@ -84,7 +88,7 @@
 
         data() {
             return {
-                movein: false
+                // movein: false
             };
         },
 
@@ -100,11 +104,11 @@
             });
             this.estates = await estate.json();
             console.log(user);
-            if (user == "kenny") {
-                this.movein = true;
-            } else {
-                this.movein = false;
-            }
+            // if (user == "kenny") {
+            //     this.movein = true;
+            // } else {
+            //     this.movein = false;
+            // }
         }
     };
 </script>
