@@ -1,2 +1,1 @@
-username: kenny
-password: 123456
+run project-sails first, then run this app.
