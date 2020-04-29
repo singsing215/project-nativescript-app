@@ -1,6 +1,6 @@
 # Renting-mobile-App
 
-The App using NativeScript-Vue framework
+The App uses NativeScript-Vue framework
 
 1. Login/logout
 1. Obtaining user rental instructions
