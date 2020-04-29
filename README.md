@@ -1,4 +1,4 @@
-# Renting-mobile-App
+# Renting Mobile App
 
 The App uses NativeScript-Vue framework
 
